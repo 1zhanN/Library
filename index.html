@@ -1,37 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Library App</title>
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
     <h1>My Library</h1>
 
+    <!-- Form to add new book -->
+    <form id="bookForm">
+        <input type="text" id="title" placeholder="Book Title" required>
+        <input type="text" id="author" placeholder="Author's Name" required>
+        <input type="number" id="pages" placeholder="Number of Pages" required>
+        <label>
+            <input type="radio" name="readStatus" value="already read" id="alreadyRead">
+            Already Read
+        </label>
+        <label>
+            <input type="radio" name="readStatus" value="not yet read" id="notYetRead">
+            Not Yet Read
+        </label>
+        <button type="submit">Add Book</button>
+    </form>
+
+    <!-- Area for book cards -->
     <div id="library">
-        <div>
-            <form id="bookForm">
-                <input type="text" id="title" placeholder="Book Title" required>
-                <input type="text" id="author" placeholder="Author's Name" required>
-                <input type="number" id="pages" placeholder="Number of Pages" required>
-                <label>
-                    <input type="radio" name="readStatus" value="already read" id="alreadyRead">
-                    Already Read
-                </label>
-                <label>
-                    <input type="radio" name="readStatus" value="not yet read" id="notYetRead">
-                    Not Yet Read
-                </label>
-                <button type="submit">Add Book</button>
-            </form>
-        </div>
+        <!-- Book cards will be generated here -->
     </div>
-    <button id="newBookBtn">New Book</button>
 
     <script src="script.js"></script>
 </body>
-
 </html>
