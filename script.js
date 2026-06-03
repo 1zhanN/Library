@@ -32,6 +32,7 @@ function Book(title, author, pages, isRead) {
     this.author = author;
     this.pages = pages;
     this.isRead = isRead;
+    this.id = crypto.randomUUID();
 }
 
 // Add toggleReadStatus to the Book prototype
@@ -90,8 +91,8 @@ function displayBooks() {
 
 // Function to remove a book from the library
 function removeBook(event) {
-    const index = event.target.getAttribute('data-index'); // Get index from data-attribute
-    myLibrary.splice(index, 1); // Remove the book from the array
+    const bookId = event.target.dataset.id 
+    myLibrary = myLibrary.filter(Book.id != bookId);
     displayBooks(); // Re-render the library
 }
 
