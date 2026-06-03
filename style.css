@@ -1,30 +1,192 @@
-/* General layout */
+/* Import a classic 8-bit retro font */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+/* --- THE MUTED 4-BROWN GAME PALETTE ---
+  Color 1: #2b1d12 (Darkest Espresso / Background)
+  Color 2: #543d2b (Medium Dark / Card Background & Shading)
+  Color 3: #a08260 (Muted Tan / Borders & Text Secondary)
+  Color 4: #e3d3be (Light Parchment / Main Text & Interactive Accents)
+*/
+
 body {
-    font-family: Arial, sans-serif;
-    padding: 20px;
+    font-family: 'Press Start 2P', monospace;
+    background-color: #2b1d12; 
+    color: #e3d3be; 
+    padding: 40px 20px;
+    line-height: 1.8;
+    image-rendering: pixelated;
 }
 
-/* Form styling */
+/* Retro Title */
+h1 {
+    text-align: center;
+    color: #e3d3be;
+    font-size: 24px;
+    margin-bottom: 50px;
+    text-shadow: 4px 4px 0px #543d2b;
+}
+
+/* --- Retro Pixel Artsy Form --- */
 form {
-    margin-bottom: 20px;
+    max-width: 440px;
+    margin: 0 auto 50px auto;
+    background: #543d2b;
+    padding: 25px;
+    
+    /* 3-Layer Pixel Box Shadow Border (creates thick retro corners) */
+    border: 4px solid #a08260;
+    box-shadow: 
+        0 4px 0 -4px #a08260, 0 -4px 0 -4px #a08260, 
+        4px 0 0 -4px #a08260, -4px 0 0 -4px #a08260,
+        6px 6px 0px #000;
 }
 
-/* Styling for book cards */
+/* Inputs styled like low-res inventory slots */
+input[type="text"],
+input[type="number"] {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 10px;
+    display: block;
+    width: calc(100% - 24px);
+    margin-bottom: 20px;
+    padding: 10px;
+    background: #2b1d12;
+    color: #e3d3be;
+    outline: none;
+    
+    /* Stepped border effect */
+    border: 3px solid #a08260;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus {
+    border-color: #e3d3be;
+}
+
+/* Muted Radio Buttons Layout */
+label {
+    font-size: 10px;
+    display: block;
+    margin-bottom: 15px;
+    cursor: pointer;
+    color: #a08260;
+}
+
+label:hover {
+    color: #e3d3be;
+}
+
+input[type="radio"] {
+    margin-right: 12px;
+    accent-color: #a08260;
+}
+
+/* --- Blocky Retro Buttons --- */
+button {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 10px;
+    padding: 12px;
+    background: #a08260;
+    color: #2b1d12;
+    border: 3px solid #2b1d12;
+    cursor: pointer;
+    width: 100%;
+    /* Inset shadow creates the 3D block shading on old console UI */
+    box-shadow: inset -4px -4px 0px 0px #543d2b;
+    font-weight: bold;
+}
+
+form button {
+    margin-top: 10px;
+    background: #e3d3be;
+    box-shadow: inset -4px -4px 0px 0px #a08260;
+}
+
+/* Primitive button depression animation on click */
+button:active {
+    transform: translate(2px, 2px);
+    box-shadow: inset 2px 2px 0px 0px #2b1d12;
+}
+
+button:hover {
+    filter: brightness(1.1);
+}
+
+/* --- The Library Grid & Cards --- */
 #library {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 30px;
+    justify-content: center;
 }
 
 .book-card {
-    border: 1px solid #ccc;
-    padding: 15px;
-    width: 200px;
-    text-align: center;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    background: #543d2b;
+    padding: 20px;
+    width: 220px;
+    text-align: left;
+    
+    /* Pixel Art Frame */
+    border: 4px solid #a08260;
+    box-shadow: 6px 6px 0px #2b1d12;
+    
+    /* Choppy, frame-dropping levitation animation */
+    animation: pixelFloat 3s steps(4) infinite;
+}
+
+.book-card:nth-child(even) {
+    animation-delay: 1.5s;
 }
 
 .book-card h3 {
+    margin: 0 0 15px 0;
+    font-size: 12px;
+    color: #e3d3be;
+    border-bottom: 4px dashed #2b1d12;
+    padding-bottom: 12px;
+}
+
+.book-card p {
+    font-size: 8px;
     margin: 10px 0;
-    font-size: 18px;
+    color: #e3d3be;
+}
+
+/* Target the "Status:" label to make it a secondary accent tone */
+.book-card p:last-of-type {
+    color: #a08260;
+}
+
+/* --- Action Buttons Inside Cards --- */
+.book-card button {
+    margin-top: 15px;
+    font-size: 8px;
+    padding: 10px 4px;
+}
+
+/* Toggle (Uses dark palette) */
+.book-card .toggle-status {
+    background: #a08260;
+    color: #2b1d12;
+    box-shadow: inset -3px -3px 0px 0px #543d2b;
+}
+
+/* Remove (Uses lighter accent palette) */
+.book-card .remove-book {
+    background: #2b1d12;
+    color: #a08260;
+    border-color: #a08260;
+    box-shadow: inset -3px -3px 0px 0px #000;
+}
+
+/* --- Primitive Animations --- */
+
+/* Using "steps()" inside the animation timeline completely forces 
+  the browser to snap instantly between keyframes rather than smoothing them.
+  This gives the floating a jerky, authentic sprite-like appearance.
+*/
+@keyframes pixelFloat {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-8px); }
+    100% { transform: translateY(0px); }
 }
